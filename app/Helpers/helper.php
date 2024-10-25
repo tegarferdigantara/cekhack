@@ -50,7 +50,7 @@ function bulanNama($bulan)
     return $bulan;
 }
 
-function bulanIni()
+function rupiah($data)
 {
-    
+    return number_format($data, 2, ',', '.');
 }

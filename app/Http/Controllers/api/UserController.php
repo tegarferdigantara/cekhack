@@ -18,9 +18,7 @@ class UserController extends BaseController
 
     public function store(Request $request)
     {
-        $name = $request->name;
-        $password = $request->password;
-        $username = $request->username;
+
 
 
         $id = DB::select("SELECT Max(id) as id from users");
@@ -56,14 +54,14 @@ class UserController extends BaseController
         ]);
 
         if (Auth::attempt($credentials)) {
-           
+
 
             $user = DB::table('users')->where(['username' => $request->username])->first();
         }
         if ($user != null) {
             // Auth::logoutOtherDevices($request->password);
-           
-           
+
+
             DB::commit();
             $currentDate = Carbon::now();
             $bulan = $currentDate->month;
@@ -79,6 +77,34 @@ class UserController extends BaseController
             return response()->json(
                 ['message' => 'Username atau password anda salah']
             );
+        }
+    }
+
+    public function userdetail(Request $request)
+    {
+
+        try {
+            $user =  DB::table('users')->where('id', $request->id)->update([
+                'no_hp' => $request->no_hp,
+                'gaji' => $request->gaji,
+                'pengeluaran' => $request->pengeluaran,
+                'tabungan' => $request->tabungan,
+                'pekerjaan' => $request->pekerjaan,
+            
+            ]);
+            DB::commit();
+            
+    
+
+            return response()->json([
+                'message' => "Data Berhasil Disimpan"
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => "Gagal menambahkan",
+                'error' => $th
+            ]);
         }
     }
 }
