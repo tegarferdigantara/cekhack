@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\GoalController;
+use App\Http\Controllers\api\ReminderController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +31,14 @@ Route::post('/cek',[Controller::class, 'cek']);
 //sigin
 Route::post('signin', [UserController::class, 'store']);
 Route::post('login', [UserController::class, 'login']);
+Route::post('userdetail', [UserController::class, 'userdetail']);
+
+
+
+//reminder
+Route::post('reminder/store', [ReminderController::class, 'store']);
+Route::get('reminder/show/{id?}', [ReminderController::class, 'showList']);
+
+
+//goal
+Route::post('goal/store', [GoalController::class, 'store']);
