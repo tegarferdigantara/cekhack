@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\view\ReminderController;
 use App\Http\Controllers\view\AccountController;
+use App\Http\Controllers\view\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/pengingat/{id}', [ReminderController::class, 'showList'])->name('reminder');
+    Route::get('/laporan/{id}', [LaporanController::class, 'laporan'])->name('laporan');
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function () {
