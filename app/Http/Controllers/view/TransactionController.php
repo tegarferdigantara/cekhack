@@ -16,4 +16,35 @@ class TransactionController extends Controller
 
         return view('pages.transaction', compact('list'));
     }
+
+    public function incomeView()
+    {
+        return view('pages.income');
+    }
+
+    public function income(Request $request)
+    {
+        $data = $request->validate([
+            'nama' => 'required',
+            'nominal' => 'required|integer',
+            'id' => 'required|integer',
+            'tipe' => 'required'
+        ]);
+
+        $maxId = DB::table('transaksi')->max('id');
+        $exec = DB::table('transaksi')->insert([
+            'id' => $maxId + 1,
+            'user_id' => $data['id'],
+            'nama' => $data['nama'],
+            'total' => $data['nominal'],
+            'jenis' => $data['tipe'],
+            'tanggal' => Carbon::now()
+        ]);
+
+        if ($exec) {
+            return redirect()->back()->with('success', 'Pemasukan berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('error', 'Pemasukan gagal ditambahkan');
+        }
+    }
 }
