@@ -26,37 +26,42 @@
                     <span class="menu-title">Home</span>
                 </a>
             </li>
-            <li class="nav-item{{ Request::is('pemasukan') ? 'active' : ' ' }}">
+            {{-- <li class="nav-item{{ Request::is('pemasukan') ? 'active' : ' ' }}">
                 <a class="nav-link" href="{{ route('pemasukan') }}">
                     <i class="icon-head menu-icon"></i>
                     <span class="menu-title">Pemasukan</span>
                 </a>
-            </li>
-            <li class="nav-item {{ Request::is('pengeluaran') ? 'active' : ' ' }}">
-                <a class="nav-link" href="{{ route('pengeluaran') }}">
-                    <i class="icon-paper menu-icon"></i>
-                    <span class="menu-title">Pengeluaran</span>
+            </li> --}}
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#transaksi" aria-expanded="false"
+                    aria-controls="transaksi">
+                    <i class="icon-columns menu-icon"></i>
+                    <span class="menu-title">Transaksi</span>
+                    <i class="menu-arrow"></i>
                 </a>
+                <div class="collapse" id="transaksi">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('pemasukan') }}">Tambah</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link"
+                                href="{{ route('riwayat-transaksi', ['id' => auth()->user()->id ?? '']) }}">Riwayat</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li class="nav-item {{ Route::is('reminder') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('reminder', ['id' => auth()->user()->id ?? '']) }}">
-                    <i class="icon-paper menu-icon"></i>
-                    <span class="menu-title">Pengingat</span>
-                </a>
-            </li>
-            <li class="nav-item {{ Route::is('goal') ? 'active' : '' }}">
+            <li class="nav-item ">
                 <a class="nav-link" href="{{ route('goal', ['id' => auth()->user()->id ?? '']) }}">
                     <i class="icon-paper menu-icon"></i>
                     <span class="menu-title">Tujuan</span>
                 </a>
             </li>
-            <li class="nav-item {{ Route::is('riwayat-transaksi') ? 'active' : '' }}">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('riwayat-transaksi', ['id' => auth()->user()->id ?? '']) }}">
                     <i class="icon-paper menu-icon"></i>
                     <span class="menu-title">Riwayat Transaksi</span>
                 </a>
-            </li>
-            <li class="nav-item {{ Route::is('laporan') ? 'active' : '' }}">
+            </li> --}}
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('laporan', ['id' => auth()->user()->id ?? '']) }}">
                     <i class="icon-paper menu-icon"></i>
                     <span class="menu-title">Laporan</span>

@@ -26,13 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/riwayat-transaksi/{id}', [TransactionController::class, 'showList'])->name('riwayat-transaksi');
 
-    Route::get('/pemasukan', function () {
-        return view('pages.income');
-    })->name('pemasukan');
-
-    Route::get('/pengeluaran', function () {
-        return view('pages.outcome');
-    })->name('pengeluaran');
+    Route::get('/tambah-transaksi', [TransactionController::class, 'incomeView'])->name('pemasukan');
+    Route::post('/tambah-transaksi', [TransactionController::class, 'income'])->name('pemasukan.action');
 
     Route::get('/tujuan/{id}', [GoalController::class, 'showList'])->name('goal');
 
