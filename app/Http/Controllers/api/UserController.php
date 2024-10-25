@@ -1,60 +1,84 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use Gemini\Data\Blob;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Gemini\Laravel\Facades\Gemini;
+
 use Illuminate\Http\Request;
-use Gemini\Enums\MimeType;
+use Illuminate\Support\Facades\Auth;
 
-class Controller extends BaseController
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
+
+class UserController extends BaseController
 {
-    use AuthorizesRequests, ValidatesRequests;
 
-
-    public function cek(Request $request)
+    public function store(Request $request)
     {
-        // Validasi untuk memastikan file yang diunggah adalah gambar
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-        $json = '{
-            "date": "2023-11-24",
-            "items": [
-                {"name": "Apel", "price": 10000},
-                {"name": "Pisang", "price": 8000}
-            ],
-            "total": 18000
-        }';
+        $name = $request->name;
+        $password = $request->password;
+        $username = $request->username;
 
 
-        $generated = "Berikan data pengeluaran dari nota ini dalam format json
-        nama barang,harga,jumlah,total kemudian total pembelian bahasa indonesia dengan format json seperti '$json'";
-        $data = $request->file('image');
+        $id = DB::select("SELECT Max(id) as id from users");
 
-        // Menggunakan base64_encode pada isi file gambar
-        $imageData = base64_encode(file_get_contents($data->getRealPath()));
+        $id_user = $id[0]->id + 1;
 
-        // Coba untuk menghasilkan konten dengan Gemini
         try {
-            $result = Gemini::geminiFlash()->generateContent([
-                $generated,
-                new Blob(MimeType::IMAGE_JPEG, data: $imageData)
+            $user =  DB::table('users')->insert([
+                'id' => $id_user,
+                'nama' => $request->nama,
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
             ]);
-
-            $text = $result->text();
-
+        } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
-                $text
+                'message' => "Gagal menambahkan",
+                'error' => $th
             ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Gagal memproses gambar: ' . $e->getMessage()
-            ], 500);
+        }
+    }
+
+
+
+    public function login(Request $request)
+    {
+        // $username = $request->username;
+        // $password = $request->password;
+
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+           
+
+            $user = DB::table('users')->where(['username' => $request->username])->first();
+        }
+        if ($user != null) {
+            // Auth::logoutOtherDevices($request->password);
+           
+           
+            DB::commit();
+            $currentDate = Carbon::now();
+            $bulan = $currentDate->month;
+            $bulanNama = bulanNama($bulan);
+            $data = [
+                'bulan' => $bulanNama,
+                'succes' => true,
+                'id' => $user->id
+            ];
+
+            return response()->json($data);
+        } else {
+            return response()->json(
+                ['message' => 'Username atau password anda salah']
+            );
         }
     }
 }
