@@ -6,19 +6,19 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Pengingat</h4>
+                        <h4 class="card-title">Tujuan</h4>
                         <p class="card-description">
-                            Dibawah ini merupakan transaksi yang belum selesai
+                            Dibawah ini merupakan tujuan anda
                         </p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Nama Transaksi</th>
-                                        <th>Tanggal</th>
-                                        <th>Nominal</th>
-                                        <th>Detail</th>
+                                        <th>Nama Keinginan</th>
+                                        <th>Status</th>
+                                        <th>Target</th>
+                                        <th>Deskripsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -26,9 +26,9 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data->nama }}</td>
-                                            <td>{{ $data->tanggal }}</td>
-                                            <td>{{ rupiah($data->nominal) }}</td>
-                                            <td>{{ $data->detail }}</td>
+                                            <td>{{ $data->status }}</td>
+                                            <td>{{ rupiah($data->target) }}</td>
+                                            <td>{{ $data->deskripsi }}</td>
                                         </tr>
                                         {{-- @else
                                         <tr>

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="content-wrapper">
         <div class="row">
@@ -7,10 +6,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Laporan Transaksi</h4>
-
-                        <p style="font-size: 20px">Nama : {{ $user[0]->nama }}</p>
-                        <p style="font-size: 20px">Total Pengeluaran : {{ rupiah($totalPengeluaran[0]->total) }}</p>
-                        <p style="font-size: 20px">Total Pemasukan : {{ rupiah($totalPemasukan[0]->total) }}</p>
                         </table>
                         <div class="table-responsive">
                             <table class="table">
@@ -21,13 +16,11 @@
                                         <th>Tanggal</th>
                                         <th>jenis</th>
                                         <th>Nominal</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
                                         $no = 0;
-
                                     @endphp
                                     @foreach ($transaksi as $data)
                                         @php
@@ -39,9 +32,15 @@
                                             <td>{{ $data->jenis }}</td>
                                             <td>{{ $data->tanggal }}</td>
                                             <td>{{ rupiah($data->total) }}</td>
-
                                         </tr>
                                     @endforeach
+                                    <tr class="fw-bold fs-2">
+                                        <td class="text-center">Nama : {{ $user[0]->nama }}</td>
+                                        <td colspan="2" class="text-center">Total Pengeluaran :
+                                            {{ rupiah($totalPengeluaran[0]->total) }}</td>
+                                        <td colspan="2" class="text-center">Total Pemasukan :
+                                            {{ rupiah($totalPemasukan[0]->total) }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

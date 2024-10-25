@@ -27,7 +27,7 @@ class AccountController extends Controller
             $currentDate = Carbon::now();
             $bulanNama = bulanNama($currentDate->month);
 
-            return view('pages.index', [
+            return redirect()->route('home')->with([
                 'bulan' => $bulanNama,
                 'success' => true,
                 'id' => $user->id
