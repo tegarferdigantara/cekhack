@@ -21,14 +21,14 @@ class GoalController extends BaseController
 
 
 
-     
+
         $id2 = DB::select("SELECT MAX(id) as id from goal");
-        if ($id2[0]->id == null){
+        if ($id2[0]->id == null) {
             $id = 1;
-        } else{
-            $id = $id2[0]->id+1;
+        } else {
+            $id = $id2[0]->id + 1;
         }
-    
+
 
         try {
             $goal =  DB::table('goal')->insert([
@@ -38,7 +38,7 @@ class GoalController extends BaseController
                 'deskripsi' => $request->deskripsi,
                 'status' => 0,
                 'target' => $request->target,
-                
+
             ]);
             DB::commit();
             return response()->json([
@@ -53,16 +53,14 @@ class GoalController extends BaseController
         }
     }
 
-    public function showList($id) {
-
-
-        $list = DB::select("SELECT * from pengingat where user_id = $id order by tanggal");
+    public function showList($id)
+    {
+        $list = DB::select("SELECT a.*, COALESCE((SELECT SUM(b.total) FROM transaksi AS b 
+        WHERE a.id = b.goal_id), 0) AS total  
+        FROM goal AS a 
+        WHERE a.user_id = $id;
+        ");
 
         return response()->json($list);
     }
-
-
-    
-
-
 }

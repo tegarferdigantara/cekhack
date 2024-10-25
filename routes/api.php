@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\GoalController;
+use App\Http\Controllers\api\KategoriController;
 use App\Http\Controllers\api\ReminderController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -42,3 +43,9 @@ Route::get('reminder/show/{id?}', [ReminderController::class, 'showList']);
 
 //goal
 Route::post('goal/store', [GoalController::class, 'store']);
+Route::get('goal/show/{id?}', [GoalController::class, 'showList']);
+
+
+//kategori
+Route::post('kategori/store', [KategoriController::class, 'store']);
+Route::get('kategori/show', [KategoriController::class, 'showList']);
