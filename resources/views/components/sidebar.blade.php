@@ -55,12 +55,12 @@
                     <span class="menu-title">Tujuan</span>
                 </a>
             </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="{{ route('riwayat-transaksi', ['id' => auth()->user()->id ?? '']) }}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('reminder', ['id' => auth()->user()->id ?? '']) }}">
                     <i class="icon-paper menu-icon"></i>
-                    <span class="menu-title">Riwayat Transaksi</span>
+                    <span class="menu-title">Pengingat</span>
                 </a>
-            </li> --}}
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('laporan', ['id' => auth()->user()->id ?? '']) }}">
                     <i class="icon-paper menu-icon"></i>
