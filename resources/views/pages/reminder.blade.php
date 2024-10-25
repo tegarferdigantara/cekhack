@@ -30,10 +30,10 @@
                                             <td>{{ $data->nominal }}</td>
                                             <td>{{ $data->detail }}</td>
                                         </tr>
-                                    @else
+                                        {{-- @else
                                         <tr>
                                             <td colspan="5" class="text-center">Tidak ada data</td>
-                                        </tr>
+                                        </tr> --}}
                                     @endforeach
                                 </tbody>
                             </table>
