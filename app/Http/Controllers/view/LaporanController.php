@@ -12,20 +12,21 @@ class LaporanController extends Controller
 {
     public function laporan($id)
     {
-        $user = DB::select("SELECT * from users where id = $id");
+        $user = DB::select("SELECT * from users where id = ?", [$id]);
         $currentMonth = Carbon::now()->month;
-        $totalPengeluaran = DB::select("SELECT SUM(total) as total from transaksi where jenis = 'pengeluaran' and user_id = $id and MONTH(tanggal) = $currentMonth");
-        $totalPemasukan = DB::select("SELECT SUM(total) as total from transaksi where jenis = 'pemasukan' and user_id = $id and MONTH(tanggal) = $currentMonth");
 
+        $totalPengeluaran = DB::select("SELECT SUM(total) as total from transaksi where jenis = 'pengeluaran' and user_id = ? and MONTH(tanggal) = ?", [$id, $currentMonth]);
+        $totalPemasukan = DB::select("SELECT SUM(total) as total from transaksi where jenis = 'pemasukan' and user_id = ? and MONTH(tanggal) = ?", [$id, $currentMonth]);
 
-        $transaksi = DB::select("SELECT * from transaksi where user_id = $id and MONTH(tanggal) = $currentMonth order by tanggal");
+        $transaksi = DB::select("SELECT * from transaksi where user_id = ? and MONTH(tanggal) = ? order by tanggal", [$id, $currentMonth]);
+
         $data = [
             'user' => $user,
             'totalPengeluaran' => $totalPengeluaran,
             'totalPemasukan' => $totalPemasukan,
             'transaksi' => $transaksi,
         ];
-        // dd($data);
+
         return view('pages.laporan')->with($data);
     }
 }

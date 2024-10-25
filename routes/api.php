@@ -69,3 +69,6 @@ Route::get('kategori/show', [KategoriController::class, 'showList']);
 
 //analisi
 Route::post('/analisis/{id?}',[GeminiController::class, 'analisis']);
+
+
+
