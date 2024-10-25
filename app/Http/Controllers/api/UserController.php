@@ -90,11 +90,11 @@ class UserController extends BaseController
                 'pengeluaran' => $request->pengeluaran,
                 'tabungan' => $request->tabungan,
                 'pekerjaan' => $request->pekerjaan,
-            
+
             ]);
             DB::commit();
-            
-    
+
+
 
             return response()->json([
                 'message' => "Data Berhasil Disimpan"
@@ -107,4 +107,64 @@ class UserController extends BaseController
             ]);
         }
     }
+
+    public function budgetStore(Request $request)
+    {
+
+        $id2 = DB::select("SELECT MAX(id) as id from bulanan");
+
+        if ($id2[0]->id == null) {
+            $id = 1;
+        } else {
+            $id = $id2[0]->id + 1;
+        }
+        
+        $total = $request->total;
+        $belanja = $request->belanja;
+        $tagihan = $request->tagihan;
+        $transportasi = $request->transportasi;
+        $hiburan = $request->hiburan;
+        $makanan = $request->makanan;
+        $tabungan = $request->tabungan;
+        $darurat = $request->darurat;
+
+        if ($belanja + $tagihan + $transportasi + $hiburan + $makanan + $tabungan + $darurat > $total) {
+            return response()->json([
+                'message' => "Total lebih kecil di banding pengeluaran"
+            ]);
+        }
+
+        try {
+            $user =  DB::table('bulanan')->insert([
+                'id' => $id,
+                'total' => $request->total,
+                'belanja' => $request->belanja,
+                'tagihan' => $request->tagihan,
+                'transportasi' => $request->transportasi,
+                'hiburan' => $request->hiburan,
+                'makanan' => $request->makanan,
+                'tabungan' => $request->tabungan,
+                'darurat' => $request->darurat,
+                'bulan' => $request->bulan,
+                'user_id' => $request->user_id,
+
+            ]);
+            DB::commit();
+
+
+
+            return response()->json([
+                'message' => "Data Berhasil Disimpan"
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => "Gagal menambahkan",
+                'error' => $th
+            ]);
+        }
+    }
+
+
+
 }
