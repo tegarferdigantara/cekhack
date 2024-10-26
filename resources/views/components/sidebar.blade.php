@@ -26,6 +26,12 @@
                     <span class="menu-title">Home</span>
                 </a>
             </li>
+            <li class="nav-item {{ Request::is('personalisasi') ? 'active' : ' ' }}">
+                <a class="nav-link" href="{{ route('personalisasi') }}">
+                    <i class="icon-grid menu-icon"></i>
+                    <span class="menu-title">Personalisasi</span>
+                </a>
+            </li>
             {{-- <li class="nav-item{{ Request::is('pemasukan') ? 'active' : ' ' }}">
                 <a class="nav-link" href="{{ route('pemasukan') }}">
                     <i class="icon-head menu-icon"></i>
