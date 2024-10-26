@@ -11,25 +11,28 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Tambah Transaksi</h4>
+                        <h4 class="card-title">Personalisasi</h4>
                         <p class="card-description"> Basic form layout </p>
-                        <form class="forms-sample" method="POST" action="{{ route('pemasukan.action') }}">
+                        <form class="forms-sample" method="POST" action="{{ route('personalisasi.action') }}">
                             @csrf
                             <div class="form-group">
-                                <label for="jenis">Pilih jenis transaksi</label>
-                                <select class="form-select" id="jenis" name="tipe">
-                                    <option value="pemasukan">Pemasukan</option>
-                                    <option value="pengeluaran">Pengeluaran</option>
-                                </select>
+                                <label for="nama">Gaji</label>
+                                <input type="number" name="gaji" class="form-control" id="nama"
+                                    placeholder="100000">
                             </div>
                             <div class="form-group">
-                                <label for="nama">Nama</label>
-                                <input type="text" name="nama" class="form-control" id="nama"
-                                    placeholder="contoh: Gaji, Upah">
+                                <label for="nominal">Pengeluaran</label>
+                                <input type="number" name="pengeluaran" class="form-control" id="nominal"
+                                    placeholder="100000">
                             </div>
                             <div class="form-group">
-                                <label for="nominal">Nominal</label>
-                                <input type="number" name="nominal" class="form-control" id="nominal"
+                                <label for="nominal">Tabungan</label>
+                                <input type="number" name="tabungan" class="form-control" id="nominal"
+                                    placeholder="100000">
+                            </div>
+                            <div class="form-group">
+                                <label for="nominal">Pekerjaan</label>
+                                <input type="text" name="pekerjaan" class="form-control" id="nominal"
                                     placeholder="100000">
                             </div>
                             <input type="hidden" name="id" value="{{ auth()->user()->id }}">

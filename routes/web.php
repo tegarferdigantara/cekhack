@@ -5,6 +5,7 @@ use App\Http\Controllers\view\ReminderController;
 use App\Http\Controllers\view\AccountController;
 use App\Http\Controllers\view\GoalController;
 use App\Http\Controllers\view\LaporanController;
+use App\Http\Controllers\view\PersonalisasiController;
 use App\Http\Controllers\view\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/tambah-transaksi', [TransactionController::class, 'incomeView'])->name('pemasukan');
     Route::post('/tambah-transaksi', [TransactionController::class, 'income'])->name('pemasukan.action');
+
+    Route::get('/personalisasi', [PersonalisasiController::class, 'personalisasiView'])->name('personalisasi');
+    Route::post('/personalisasi', [PersonalisasiController::class, 'personalisasiAction'])->name('personalisasi.action');
 
     Route::get('/tujuan/{id}', [GoalController::class, 'showList'])->name('goal');
 
