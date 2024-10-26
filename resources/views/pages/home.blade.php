@@ -69,7 +69,7 @@
                                     );
 
                                 @endphp
-                                <p class="fs-30 mb-2">{{ rupiah($totalPemasukan[0]->total) }}/
+                                <p class="fs-30 mb-2">{{ rupiah($totalPengeluaran[0]->total) }}/
                                     {{ rupiah($budget[0]->total) }}</p>
                                 {{-- <p class="fs-30 mb-2">61344</p> --}}
                             </div>

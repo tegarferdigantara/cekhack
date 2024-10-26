@@ -13,8 +13,8 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama Transaksi</th>
+                                        <th>Jenis</th>
                                         <th>Tanggal</th>
-                                        <th>jenis</th>
                                         <th>Nominal</th>
                                     </tr>
                                 </thead>
